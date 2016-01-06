@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET    /                             controllers.Application.index()
+GET    /tokenError                   controllers.Application.tokenError()
+
+# Map static resources from the /public folder to the /assets URL path
+GET    /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+
+
+# sub routes
+->     /api                          api.Routes
+->     /open                         open.Routes
+GET    /widget/bbt_widget_info       controllers.api.WidgetAPIController.bbt_widget_info()
+GET    /widget/bbt_widget            controllers.api.WidgetAPIController.bbt_widget()
+GET    /widget/bbt_widget_pushbind   controllers.api.WidgetAPIController.bbt_widget_pushbind()
+POST   /widget/bbt_widget_info       controllers.api.WidgetAPIController.bbt_widget_info()
+POST   /widget/bbt_widget            controllers.api.WidgetAPIController.bbt_widget()
+POST   /widget/bbt_widget_pushbind   controllers.api.WidgetAPIController.bbt_widget_pushbind()
+POST   /widget/app_buriedpoint		 controllers.api.WidgetAPIController.app_buriedpoint()
+
+POST   /authapp/login                controllers.api.AuthAppAPIController.login()
+POST   /authapp/send_verify_code     controllers.api.AuthAppAPIController.send_verify_code()  
+POST   /authapp/get_company_list     controllers.api.AuthAppAPIController.get_company_list() 
+POST   /authapp/reg                  controllers.api.AuthAppAPIController.reg()
+POST   /authapp/get_last             controllers.api.AuthAppAPIController.get_last() 
+POST   /authapp/unbind_device        controllers.api.AuthAppAPIController.unbind_device()  
+POST   /authapp/get                  controllers.api.AuthAppAPIController.get()

@@ -1,0 +1,6 @@
+POST   /income                    controllers.api.OutAPIController.income()
+POST   /delivery/order            controllers.api.OpenAPIController.order()
+POST   /delivery/pay_result/pos   controllers.api.OpenAPIController.pos()
+GET    /delivery/orderResu        controllers.api.OpenAPIController.orderResu()
+
+
