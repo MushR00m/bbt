@@ -161,6 +161,7 @@ public class CityWideAPIController extends BaseController {
 		result.put("ordertime", Dates.formatDateTimeNew(postOrder.getGettime()));
 		
 		if("0".equals(type)){//商户
+			result.put("ordertitle", "速递订单（商户）");
 			result.put("remark", postOrder.getRemark());
 			result.put("freight", postOrder.getFreight());
 			result.put("platformreward", "平台奖励");
@@ -181,6 +182,7 @@ public class CityWideAPIController extends BaseController {
 				result.put("completedate", Dates.formatDateTimeNew(postOrder.getOvertime()));
 			}
 		}else{
+			result.put("ordertitle", "速递订单（个人）");
 			result.put("paytype", PayModeStas.status2Message(postOrder.getPaytyp()));
 			result.put("goodstype", postOrder.getGettyp());
 			result.put("goodsweight", postOrder.getWeight());
@@ -221,8 +223,9 @@ public class CityWideAPIController extends BaseController {
 	@PostmanAuthenticated
 	public Result update_order_status() {
 		response().setContentType("application/json;charset=utf-8");
-		int orderid = Numbers.parseInt(AjaxHelper.getHttpParamOfFormUrlEncoded(request(), "orderid"), 0);//快递单号
+ 		int orderid = Numbers.parseInt(AjaxHelper.getHttpParamOfFormUrlEncoded(request(), "orderid"), 0);//快递单号
 		String state = AjaxHelper.getHttpParamOfFormUrlEncoded(request(), "state");//新的订单状态
+		PostmanUser postmanuser = getCurrentPostmanUser(request());
 		ObjectNode result = Json.newObject();
 		if(StringUtils.isBlank(state)){
 			result.put("status", ErrorCode.getErrorCode("global.cityWideStatusError"));
@@ -244,6 +247,14 @@ public class CityWideAPIController extends BaseController {
 			CitywideService.savePostOrder(postOrder);
 			if(postOrder.getStatus().intValue()!=Constants.CityWideDeliverStas.WaitToCatch.getStatus()){//只要不是待接单状态，则清除临时表数据
 				CitywideService.deletePostmanUserTempByOrderid(orderid);
+			}
+			PostOrderUser postOrderUser= CitywideService.findPostOrderUserByOrderidPostmanid(orderid, postmanuser.getId());
+			if (postOrderUser == null){
+				PostOrderUser postOrderUser1=new PostOrderUser();
+				postOrderUser1.setOrderid(orderid);
+				postOrderUser1.setPostmanid(postmanuser.getId());
+				postOrderUser1.setStatus(1);
+				CitywideService.savePostOrderUser(postOrderUser1);
 			}
 			
 		}

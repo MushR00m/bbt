@@ -599,6 +599,7 @@ public class ExpressService {
 				expressInfoVO.linkurl = "pExpressDetail://lid="+expressInfoVO.expressid;
 				expressInfoVO.mailno = oper.rs.getString("mail_num");
 				expressInfoVO.needpay = oper.rs.getString("need_pay");
+				expressInfoVO.expressfrom = oper.rs.getString("sender_company_name");
 				
 				String typ=oper.rs.getString("typ");
 				String paymodel =  oper.rs.getString("pay_mode");

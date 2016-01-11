@@ -52,6 +52,7 @@ import controllers.BaseController;
  * @author luobotao
  * @Date 2015年11月10日
  */
+
 public class UserAPIController extends BaseController {
 	SimpleDateFormat CHINESE_DATE_TIME_FORMAT_NORMAL = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final java.util.regex.Pattern USERNAME_PATTERN = java.util.regex.Pattern.compile("[\u4E00-\u9FA5]{2,10}(?:·[\u4E00-\u9FA5]{2,10})*");
@@ -593,7 +594,8 @@ public class UserAPIController extends BaseController {
     	postmanUserLocationLog.setPostmanid(postmanuser.getId());
     	postmanUserLocationLog.setHeight(postmanuser.getHeight());
     	postmanUserLocationLog.setSubstation(postmanuser.getSubstation());
-    	UserService.savePostmanUserLocationLog(postmanUserLocationLog);
+//		暂时将修改位置信息关掉
+//    	UserService.savePostmanUserLocationLog(postmanUserLocationLog);
     	result.put("status", "1");
     	result.put("msg",  "定位成功");
     	return ok(Json.toJson(result));
@@ -1425,7 +1427,7 @@ public class UserAPIController extends BaseController {
     	List<ObjectNode> itemsList = Lists.newArrayList();
     	result.put("status", "1");
     	result.put("msg",  "成功");
-
+    	
 		ObjectNode item0 = Json.newObject();
 		item0.put("name", "签到");
 		item0.put("icon", "http://apitestpic.higegou.com/upload/endorsement/headicon55be389e-8438-4cb0-b6e0-afdf10ba1e49.png");

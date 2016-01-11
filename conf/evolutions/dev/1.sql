@@ -333,6 +333,7 @@ create table postmanuser (
   addrdes                    varchar(512) DEFAULT '' ,
   shopurl                    varchar(128) DEFAULT '' ,
   sta                        varchar(2) DEFAULT '1' ,
+  poststatus                 int DEFAULT 0 ,
   date_new                  datetime(6),
   date_upd                  datetime(6),
   constraint pk_postmanuser primary key (id))
@@ -353,6 +354,13 @@ create table postmanuser_location_log (
   date_new                  datetime(6),
   date_upd                  datetime(6),
   constraint pk_postmanuser_location_log primary key (id))
+;
+
+create table postmanuser_temp (
+  id                        integer auto_increment not null,
+  postmanid                 integer,
+  orderid                   integer,
+  constraint pk_postmanuser_temp primary key (id))
 ;
 
 create table pushinfo (
@@ -504,6 +512,8 @@ drop table postdelivery_goods;
 drop table postmanuser;
 
 drop table postmanuser_location_log;
+
+drop table postmanuser_temp;
 
 drop table pushinfo;
 

@@ -449,13 +449,13 @@ public class UserService {
 				if("1".equals(postcompany.getDeliveryflag())){//只有可派单的公司才展示
 					Integer nolookedcnt=0;
 					Integer newcnt=0;
-					String sql="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND islooked='0' AND sta='1' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
+					String sql="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND islooked='0' AND sta='1' and `sender_company_name`<> '聚美商品' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
 					List<SqlRow> rslist=Ebean.getServer(Constants.getDB()).createSqlQuery(sql).findList();
 					for(SqlRow rs:rslist){
 						nolookedcnt=rs.getInteger("cnt");
 					}
 					
-					String sql1="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND sta='1' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
+					String sql1="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND sta='1' and `sender_company_name`<> '聚美商品' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
 					List<SqlRow> rslist1=Ebean.getServer(Constants.getDB()).createSqlQuery(sql1).findList();
 					for(SqlRow rs:rslist1){
 						newcnt=rs.getInteger("cnt");
@@ -516,13 +516,13 @@ public class UserService {
 		PostmanUser uInfo=getPostManUserById(uid);
 		Integer nolookedcnt=0;
 		Integer newcnt=0;
-		String sql="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND islooked='0' AND sta='1' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
+		String sql="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND islooked='0' AND sta='1' and `sender_company_name`<> '聚美商品' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
 		List<SqlRow> rslist=Ebean.getServer(Constants.getDB()).createSqlQuery(sql).findList();
 		for(SqlRow rs:rslist){
 			nolookedcnt=rs.getInteger("cnt");
 		}
 		
-		String sql1="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND sta='1' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
+		String sql1="SELECT COUNT(id) as cnt FROM postdelivery WHERE postman_id="+uid+" AND sta='1' and `sender_company_name`<> '聚美商品' and flg='1' AND DATE_FORMAT(date_upd,'%Y-%m-%d')='"+tim+"'";
 		List<SqlRow> rslist1=Ebean.getServer(Constants.getDB()).createSqlQuery(sql1).findList();
 		for(SqlRow rs:rslist1){
 			newcnt=rs.getInteger("cnt");

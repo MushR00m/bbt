@@ -28,6 +28,7 @@ public class ExpressInfoVO {
 	public String mailno;
 	public String needpay;
 	public String paymentstatus;
+	public String expressfrom;
 	public List<paytypeInfo> paytypes;
 	
 

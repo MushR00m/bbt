@@ -32,6 +32,11 @@ public class CitywideService {
 	public static List<PostOrderUser> findPostOrderUserListByPostmanid(int postmanid){
 		return Ebean.getServer(Constants.getDB()).find(PostOrderUser.class).where().eq("postmanid", postmanid).findList();
 	}
+	
+	public static PostOrderUser findPostOrderUserByOrderidPostmanid(int orderid,int postmanid){
+		return Ebean.getServer(Constants.getDB()).find(PostOrderUser.class).where().eq("postmanid", postmanid).eq("orderid", orderid).findUnique();
+	}
+	
 	public static PostOrder findPostOrderByOrderId(Integer orderid){
 		return Ebean.getServer(Constants.getDB()).find(PostOrder.class,orderid);
 	}
@@ -169,7 +174,7 @@ public static ObjectNode getOrderList(ObjectNode resultObject,int postmanid,Stri
         		express1.put("senddistance", Numbers.doubleWithOne(StringUtil.Distance(postmanX,postmanY,oper.rs.getDouble("userlat"), oper.rs.getDouble("userlong")),1000,1)+"千米");
         		express1.put("orderincome",oper.rs.getString("award"));
         		express1.put("ordertime", oper.rs.getString("gettime"));
-        		UserInfo userInfo = CitywideService.findUserInfoByUid(postmanid);
+        		UserInfo userInfo = CitywideService.findUserInfoByUid(oper.rs.getInt("uid"));
         		if(userInfo!=null && userInfo.getTyp()==0){//0是商户
         			express1.put("linkurl", "pOrderDetail://oid="+oper.rs.getString("orderid")+"&type=0");
         			express1.put("ordertitle", "速递订单（商户）");
@@ -672,6 +677,17 @@ public static ObjectNode getOrderList(ObjectNode resultObject,int postmanid,Stri
 		return postOrder;
 	}
 
+	
+	/**
+	 * 保存同城快递用户
+	 * @param postOrderUser
+	 * @return
+	 */
+	public static PostOrderUser savePostOrderUser(PostOrderUser postOrderUser){
+		Ebean.getServer(Constants.getDB()).save(postOrderUser);
+		return postOrderUser;
+	}
+	
 	/**
 	 * 获取系统消息
 	 * @param cardlist

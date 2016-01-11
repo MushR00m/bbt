@@ -1,18 +1,13 @@
-import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Seconds;
-
 import actor.PushActor;
 import actor.ScheduleActor;
 import actor.ZeroActor;
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Seconds;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;
 import play.Play;
-import play.data.Form;
 import play.libs.Akka;
 import play.libs.F;
 import play.libs.F.Promise;
@@ -20,8 +15,11 @@ import play.mvc.Action;
 import play.mvc.Http.Context;
 import play.mvc.Http.Request;
 import play.mvc.Result;
-import utils.AjaxHelper;
 import scala.concurrent.duration.Duration;
+import utils.AjaxHelper;
+
+import java.lang.reflect.Method;
+import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
 	private static Logger.ALogger logger = Logger.of(Global.class);
